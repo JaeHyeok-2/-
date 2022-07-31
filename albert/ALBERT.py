@@ -17,8 +17,7 @@ class ALBERT(nn.Module):
         self.num_group = num_group 
         self.model_hidden = model_hidden
         self.num_head = num_head
-        self.feed_forward_hidden= model_hidden * 4 # 피드포워드 인닉개수 H = E * 4라고 정의
-
+        self.feed_forward_hidden= model_hidden * 4 # 피드포워드 인닉개수 
         self.transformer_layer_group = nn.ModuleList(
             [Transformer(model_hidden, model_hidden *4, num_head , dropout) for _ in range(num_group)]
         )
