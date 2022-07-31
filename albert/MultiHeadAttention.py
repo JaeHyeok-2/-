@@ -1,0 +1,46 @@
+import torch
+import torch.nn as nn
+from typing import Optional
+
+class MultiHeadAttention(nn.Module) :
+    def __init__(self,model_hidden:int, num_head : int, dropout :float = 0.1):
+        super().__init__()
+
+        self.num_head = num_head
+        self.head_hidden = model_hidden // num_head
+        self.query_linear = nn.Linear(model_hidden,model_hidden)
+        self.key_linear = nn.Linear(model_hidden,model_hidden)
+        self.value_linear = nn.Linear(model_hidden,model_hidden)
+        self.dropout = nn.Dropout(dropout)
+
+
+    def forward(self,query:torch.Tensor, key:torch.Tensor, value:torch.Tensor,
+                mask: Optional[torch.BoolTensor] = None) -> torch.Tensor:
+
+        assert query.shape == key.shape == value.shape, "Query, Key, Value Shape Error"
+
+        batch_size = query.shape[0]
+        seq_len = query.shape[1]
+
+        query = self.query_linear(query).view(batch_size,seq_len,self.num_head,self.head_hidden).permute(0,2,1,3)
+        key = self.key_linear(key).view(batch_size,seq_len,self.num_head,self.head_hidden).permute(0,2,1,3)
+        value = self.value_linear(value).view(batch_size,seq_len,self.num_head,self.head_hidden).permute(0,2,1,3)
+
+        attn_score = torch.matmul(query, key.permute(0,1,3,2))
+
+        if mask is not None :
+            assert mask.shape == torch.Size([batch_size,seq_len]), "Attention mask Shape Error"
+            mask_tensor = mask.unsqueeze(1).repeat(1,mask.shape[1],1).unsqueeze(1)  # (batch,1,seq)
+            mask_tensor = mask_tensor.type(torch.float)
+            mask_tensor = torch.where(mask_tensor == 0 , torch.tensor(-1e+10, dtype=torch.float).to(mask_tensor.device),
+                                      mask_tensor)
+            mask_tensor = torch.where(mask_tensor ==1, torch.tensor(0,dtype=torch.float).to(mask_tensor.device),
+                                      mask_tensor)
+            attn_score += mask_tensor
+
+        attn_ratio =  torch.nn.functional.softmax(attn_score,dim=-1)
+        attend_value = torch.matmul(attn_ratio,value) # (batch,n_haed,seq,h_ddin)
+        attend_value = attend_value.permute(0,2,1,3).reshape(batch_size,seq_len,-1)
+        attend_value = self.dropout(attend_value)
+
+        return attend_value
