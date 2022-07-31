@@ -14,7 +14,7 @@ class ALBERT(nn.Module):
         self.ALBERTTokenEmbedding = ALBERTTokenEmbedding(vocab_size)
         self.token_to_hidden_project_layer = nn.Linear(token_embedding_size, model_hidden) # 128 ,768
         self.layer_iter = layer_iter  # 12 회
-        self.num_group = num_group # 뭔지 잘모름
+        self.num_group = num_group 
         self.model_hidden = model_hidden
         self.num_head = num_head
         self.feed_forward_hidden= model_hidden * 4 # 피드포워드 인닉개수 H = E * 4라고 정의
