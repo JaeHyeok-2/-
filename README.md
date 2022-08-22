@@ -10,4 +10,5 @@
 
 
 
-## 이외의 Paper는 [Notion] 에 정리(https://copper-lodge-30e.notion.site/ceeebe0d5a7a445694554821920c0af1)
+## 이외의 Paper는 [Notion](https://copper-lodge-30e.notion.site/ceeebe0d5a7a445694554821920c0af1)
+
