@@ -1,10 +1,10 @@
 # 논문 스터디를 하면서 내가 읽은 논문을 구현하는 공간
 
 ## `NLP`
-### 1.BERT
-### 2.ALBERT
+### [1.BERT] : https://github.com/JaeHyeok-2/Paper/tree/main/bert
+### [2.ALBERT] : https://github.com/JaeHyeok-2/Paper/tree/main/albert
 
 ## `Vision`
-### 3.SPPNet
-### 4.YOLO
+### [3.SPPNet] : https://github.com/JaeHyeok-2/Paper/tree/main/SPPNet
+### [4.YOLO] : https://github.com/JaeHyeok-2/Paper/tree/main/YOLO
 
