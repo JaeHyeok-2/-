@@ -6,8 +6,8 @@
 
 ## `Vision`
 ### [3.SPPNet](https://github.com/JaeHyeok-2/Paper/tree/main/SPPNet)
-### [4.YOLO](https://github.com/JaeHyeok-2/Paper/tree/main/YOLO)
-
+### [4.YOLOv1](https://github.com/JaeHyeok-2/Paper/tree/main/YOLO)
+### [5.YOLOv3](https://github.com/JaeHyeok-2/Paper/tree/main/YOLO_v3)
 
 
 ## 이외의 Paper는 [Notion](https://copper-lodge-30e.notion.site/ceeebe0d5a7a445694554821920c0af1)
